@@ -2,18 +2,6 @@
 Changelog for package ridgeback_description
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-0.1.8 (2016-09-30)
-------------------
-* Added environment variable to set the robot configuration and empty configuration.
-* Added cmd_vel timeout for force based move plugin.
-* Contributors: Tony Baltovski
-
-0.1.7 (2016-07-18)
-------------------
-* Removed unused mesh.
-* Uncommented RIDGEBACK_URDF_EXTRAS include.
-* Contributors: Tony Baltovski
-
 0.1.6 (2016-05-25)
 ------------------
 * Added params for hector_gazebo_plugins/gazebo_ros_force_based_move.

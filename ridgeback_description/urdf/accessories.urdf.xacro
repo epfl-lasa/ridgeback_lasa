@@ -12,6 +12,8 @@
 
   <xacro:include filename="$(find ridgeback_description)/urdf/accessories/sick_lms1xx_mount.urdf.xacro" />
   <xacro:include filename="$(find ridgeback_description)/urdf/accessories/hokuyo_ust-10lx_mount.urdf.xacro" />
+  <xacro:include filename="$(find ur_description)/urdf/ur5.urdf.xacro" />
+
 
   <!-- If enabled, generate the front HOKUYO UST-10LX LASER payload. -->
   <xacro:if value="$(optenv RIDGEBACK_FRONT_HOKUYO_LASER 0)">
@@ -40,5 +42,58 @@
                             topic="rear/scan"
                             location="-1" />
   </xacro:if>
+
+  <link name="arch_link">
+		<visual>
+			<geometry>
+				<mesh filename="package://ridgeback_description/meshes/epfl_arch.dae" />
+			</geometry>
+		</visual>
+
+		<collision>
+			<geometry>
+				<mesh filename="package://ridgeback_description/meshes/epfl_arch.dae" />
+			</geometry>
+		</collision>
+   </link>
+
+  <joint name="arch_joint" type="fixed">
+	  <origin xyz="-0.38 0 0.278" rpy="0 0 1.5" />
+	  <parent link="top_link" />
+	  <child link="arch_link" />
+  </joint>
+
+<!-- Spawn arm -->
+  <xacro:ur5_robot prefix="ur5_arm_" joint_limited="true"/>
+
+  <!-- Join arm -->
+  <joint name="ur5_arm_base" type="fixed">
+	<parent link="mid_mount" />
+	<child link="ur5_arm_base_link" />
+	<origin xyz="0.22 0.0 0.0" rpy="0.0 0.0 -1.5708" />
+  </joint>
+
+  <!-- Sensor Mount and other custom parts -->
+  <link name="FT300_link">
+		<visual>
+			<geometry>
+				<cylinder length="0.04" radius="0.035"/>
+			</geometry>
+			<material name="black"/>
+		</visual>
+
+		<collision>
+			<geometry>
+				<cylinder length="0.04" radius="0.035"/>
+			</geometry>
+		</collision>
+   </link>
+
+  <joint name="FT300_joint" type="fixed">
+	  <origin xyz="0.02 0 0" rpy="0 1.57 0" />
+	  <parent link="ur5_arm_ee_link" />
+	  <child link="FT300_link" />
+  </joint>
+
 
 </robot>
